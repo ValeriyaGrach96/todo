@@ -3,26 +3,27 @@
     <Main
       :todos="todos"
       :deleted="deleted"
+      :completed="completed"
       @removeObject="removeObjectOfTodos"
       @addTask="newTask"
+      @setDone="setDone"
     />
   </div>
 </template>
 
 <script>
 import Main from "./components/Main";
-import jj from "./helpers";
+import TODO_STATUS from "./helpers";
+
+const LOCAL_STORAGE_KEY = 'LOCAL_STORAGE_KEY';
 
 export default {
   name: "App",
   data() {
     return {
-      todos: [
-        { id: 1, title: "Buy bread", status: jj[2] },
-        { id: 2, title: "Buy milk", status: jj[2] },
-        { id: 3, title: "Buy tomato", status: jj[2] },
-      ],
+      todos: [],
       deleted: [],
+      completed: [],
     };
   },
   components: {
@@ -31,13 +32,28 @@ export default {
   methods: {
     removeObjectOfTodos(id) {
       let taskDeleted = this.todos.find((i) => i.id === id);
-      taskDeleted.status = jj[0];
+      taskDeleted.status = TODO_STATUS[0];
       this.deleted.push(taskDeleted);
       this.todos = this.todos.filter((i) => i.id !== id);
     },
     newTask(newTask) {
       this.todos.push(newTask);
     },
+    setDone(id) {
+      let taskComplete = this.todos.find((i) => i.id === id);
+      taskComplete.status = TODO_STATUS[1];
+      this.completed.push(taskComplete);
+      this.todos = this.todos.filter((i) => i.id !== id);
+    },
+  },
+  watch: {
+    todos(newTodo) {
+      console.log(newTodo);
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTodo));
+    }
+  },
+  mounted () {
+    this.todos = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
   },
 };
 </script>

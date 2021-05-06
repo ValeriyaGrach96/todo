@@ -2,7 +2,8 @@
   <li class="tasks--li">
     <p class="li--id">{{ index + 1 }}.</p>
     <p class="li--title">{{ task.title }}</p>
-    <Buttons @remove="removeTask" />
+    <Buttons @onRemove="removeTask"
+             @onSubmit="$emit('completeTask', task.id)"/>
   </li>
 </template>
 

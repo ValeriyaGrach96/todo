@@ -4,10 +4,12 @@
     <hr />
     <Input @addTask="task" />
     <MainContent
-      :tasks="Todos"
+      :tasks="todos"
       :deletedTask="deleted"
       @removeTodo="removeObject"
       :deleted="deleted"
+      :completed="completed"
+      @completeTask="completeTask"
     />
   </div>
 </template>
@@ -25,8 +27,9 @@ export default {
     MainContent,
   },
   props: {
-    Todos: Array,
+    todos: Array,
     deleted: Array,
+    completed: Array,
   },
   methods: {
     removeObject(id) {
@@ -35,6 +38,9 @@ export default {
     task(newTask) {
       this.$emit("addTask", newTask);
     },
+    completeTask(id) {
+      this.$emit('setDone', id)
+    }
   },
 };
 </script>

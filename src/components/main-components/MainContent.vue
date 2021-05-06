@@ -8,11 +8,16 @@
         :task="task"
         :index="index"
         @removeTask="removeTodo"
+        @completeTask="completeTask"
       />
     </ul>
     <h2>Выполненные задачи</h2>
     <ul class="lists--complete">
-      <ListComplete />
+      <ListComplete
+      v-for="(task, index) of completed"
+      :key="task.id"
+      :copmleteTask="task"
+      :index="index"/>
     </ul>
     <h2>Удаленные задачи</h2>
     <ul class="lists--delete">
@@ -41,11 +46,15 @@ export default {
   props: {
     tasks: Array,
     deleted: Array,
+    completed: Array,
   },
   methods: {
     removeTodo(id) {
       this.$emit("removeTodo", id);
     },
+    completeTask(id) {
+      this.$emit('completeTask', id);
+    }
   },
 };
 </script>

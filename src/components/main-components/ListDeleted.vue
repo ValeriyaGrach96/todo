@@ -1,7 +1,7 @@
 <template>
   <li class="delete--li">
     <p class="li--id">{{ index + 1 }}</p>
-    <p class="li--title">{{ getTask }}</p>
+    <p class="li--title">{{ delTask.title }}</p>
     <Buttons />
   </li>
 </template>
@@ -19,12 +19,6 @@ export default {
   },
   components: {
     Buttons,
-  },
-  computed: {
-    getTask() {
-      console.log(this.delTask);
-      return this.delTask.title;
-    },
   },
 };
 </script>
@@ -45,5 +39,8 @@ li {
 }
 p {
   margin-right: 20px;
+}
+.delete--li .li--title {
+  text-decoration: line-through;
 }
 </style>

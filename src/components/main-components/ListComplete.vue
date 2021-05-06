@@ -1,6 +1,7 @@
 <template>
   <li class="complete--li">
-    <p class="li--id"></p>
+    <p class="li--id">{{index + 1}}</p>
+    <p class="li--title">{{copmleteTask.title}}</p>
     <Buttons />
   </li>
 </template>
@@ -10,6 +11,13 @@ import Buttons from "./Buttons";
 
 export default {
   name: "ListComplete",
+  props: {
+    copmleteTask:{
+      type: Object,
+      required: true,
+    },
+    index: Number,
+  },
   components: {
     Buttons,
   },

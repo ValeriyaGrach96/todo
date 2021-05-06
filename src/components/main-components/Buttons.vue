@@ -4,7 +4,7 @@
       type="submit"
       class="buttons--button-task"
       aria-label="Выполнить действие"
-      @click="$emit('added')"
+      @click="$emit('onSubmit')"
     >
       <img
         class="button-task--img"
@@ -13,9 +13,10 @@
       />
     </button>
     <button
+      type="button"
       class="buttons--button-clear"
       aria-label="Удалить"
-      @click="$emit('remove')"
+      @click="$emit('onRemove')"
     >
       <img
         class="button-clear--img"
@@ -47,8 +48,5 @@ button {
 button:focus {
   outline: none;
   box-shadow: 0px 0px 4px 2px rgba(0, 94, 106, 0.44);
-}
-img {
-  margin: auto 0;
 }
 </style>

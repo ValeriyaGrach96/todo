@@ -1,12 +1,12 @@
 <template>
-  <form class="page--form" @submit="onSubmit" @submit.prevent >
+  <form class="page--form" @submit.prevent="onSubmit">
     <input
       type="text"
       placeholder="Введите текст задачи"
       class="form--input"
       v-model="title"
     />
-    <Buttons />
+    <Buttons @onRemove="onRemove"/>
   </form>
 </template>
 
@@ -36,6 +36,9 @@ export default {
         this.title = "";
       }
     },
+    onRemove() {
+      this.title = "";
+    }
   },
 };
 </script>
