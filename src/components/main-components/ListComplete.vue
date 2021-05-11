@@ -1,16 +1,21 @@
 <template>
-  <li class="complete--li">
+  <div class="list-complete">
     <p class="li--id">{{index + 1}}</p>
     <p class="li--title">{{copmleteTask.title}}</p>
-    <Buttons />
-  </li>
+    <div class="complete--buttons">
+      <Button-clear @onDelete="removeTask"/>
+    </div>
+  </div>
 </template>
 
 <script>
-import Buttons from "./Buttons";
+import ButtonClear from './Button-clear.vue'
 
 export default {
   name: "ListComplete",
+  components: {
+    ButtonClear,
+  },
   props: {
     copmleteTask:{
       type: Object,
@@ -18,27 +23,26 @@ export default {
     },
     index: Number,
   },
-  components: {
-    Buttons,
-  },
+  methods: {
+    removeTask() {
+      this.$emit("removeTask", this.copmleteTask.id);
+    }
+  }
 };
 </script>
 
 <style>
-li {
+.list-complete {
   display: flex;
-  justify-content: start;
-
-  text-align: center;
-
-  list-style-type: none;
-  list-style-position: inside;
-
-  font-size: 15px;
-
-  margin: 0 0 15px 0;
 }
-p {
-  margin-right: 20px;
+.complete--buttons {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+.complete--buttons button {
+  width: 25px;
+  height: 25px;
+  justify-content: center;
 }
 </style>

@@ -1,19 +1,23 @@
 <template>
-  <li class="tasks--li">
+  <div class="list-tasks">
     <p class="li--id">{{ index + 1 }}.</p>
     <p class="li--title">{{ task.title }}</p>
-    <Buttons @onRemove="removeTask"
-             @onSubmit="$emit('completeTask', task.id)"/>
-  </li>
+    <div class="tasks--buttons">
+      <Button-execute @onExecute="completeTask"/>
+      <Button-clear @onDelete="removeTask"/>
+    </div>
+  </div>
 </template>
 
 <script>
-import Buttons from "./Buttons";
+import ButtonClear from './Button-clear.vue';
+import ButtonExecute from './Button-execute.vue';
 
 export default {
   name: "ListTask",
   components: {
-    Buttons,
+    ButtonExecute,
+    ButtonClear,
   },
   props: {
     task: {
@@ -26,25 +30,25 @@ export default {
     removeTask() {
       this.$emit("removeTask", this.task.id);
     },
+    completeTask() {
+      this.$emit("completeTask", this.task.id);
+    },
   },
 };
 </script>
 
 <style>
-li {
+.list-tasks {
   display: flex;
-  justify-content: start;
-
-  text-align: center;
-
-  list-style-type: none;
-  list-style-position: inside;
-
-  font-size: 15px;
-
-  margin: 0 0 15px 0;
 }
-p {
-  margin-right: 20px;
+.tasks--buttons {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+}
+.tasks--buttons button {
+  width: 25px;
+  height: 25px;
+  justify-content: center;
 }
 </style>

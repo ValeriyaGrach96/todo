@@ -2,8 +2,8 @@
   <header class="page--header">
     <h1>TodoList</h1>
     <div class="header--numbers">
-      <p class="numbers-quantity">N</p>
-      <p class="numbers-non">n</p>
+      <p class="numbers-quantity">{{amountTasks}}</p>
+      <p class="numbers-non">{{amountOfComplete}}</p>
     </div>
   </header>
 </template>
@@ -11,6 +11,10 @@
 <script>
 export default {
   name: "Header",
+  props: {
+    amountTasks: Number,
+    amountOfComplete: Number,
+  }
 };
 </script>
 

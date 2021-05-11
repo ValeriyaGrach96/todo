@@ -6,18 +6,23 @@
       class="form--input"
       v-model="title"
     />
-    <Buttons @onRemove="onRemove"/>
+    <div class="input--buttons">
+      <Button-execute @onExecute="createTask"/>
+      <Button-clear @onDelete="onDelete"/>
+    </div>
   </form>
 </template>
 
 <script>
-import Buttons from "./Buttons";
-import jj from "../../helpers";
+import TODO_STATUS from "../../helpers";
+import ButtonClear from './Button-clear.vue';
+import ButtonExecute from './Button-execute.vue';
 
 export default {
   name: "Input",
   components: {
-    Buttons,
+    ButtonClear,
+    ButtonExecute,
   },
   data() {
     return {
@@ -30,14 +35,17 @@ export default {
         const newTask = {
           id: Date.now(),
           title: this.title,
-          status: jj[2],
+          status: TODO_STATUS[2],
         };
         this.$emit("addTask", newTask);
-        this.title = "";
+        this.onDelete();
       }
     },
-    onRemove() {
+    onDelete() {
       this.title = "";
+    },
+    createTask() {
+      this.onSubmit();
     }
   },
 };
@@ -66,8 +74,14 @@ export default {
   border: 3px solid #2c3e50af;
   border-radius: 10px;
 }
-.page--form img {
+.input--buttons {
+  display: flex;
+}
+.input--buttons button {
   width: 45px;
   height: 45px;
+}
+button + button {
+  margin-left: 10px;
 }
 </style>

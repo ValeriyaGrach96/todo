@@ -1,46 +1,50 @@
 <template>
-  <li class="delete--li">
+  <div class="list-delete">
     <p class="li--id">{{ index + 1 }}</p>
     <p class="li--title">{{ delTask.title }}</p>
-    <Buttons />
-  </li>
+    <div class="delete--buttons">
+      <Button-clear @onDelete="deleteTask"/>
+    </div>
+  </div>
 </template>
 
 <script>
-import Buttons from "./Buttons";
+import ButtonClear from './Button-clear.vue';
 
 export default {
   name: "ListDeleted",
+    components: {
+      ButtonClear,
+  },
   props: {
     delTask: {
       type: Object,
     },
     index: Number,
   },
-  components: {
-    Buttons,
-  },
+  methods: {
+    deleteTask() {
+      this.$emit('deleteTask', this.delTask.id);
+    }
+  }
 };
 </script>
 
 <style>
-li {
+.list-delete {
   display: flex;
-  justify-content: start;
-
+}
+.delete--buttons {
+  display: flex;
   text-align: center;
-
-  list-style-type: none;
-  list-style-position: inside;
-
-  font-size: 15px;
-
-  margin: 0 0 15px 0;
+  justify-content: center;
 }
-p {
-  margin-right: 20px;
+.delete--buttons button {
+  width: 25px;
+  height: 25px;
+  justify-content: center;
 }
-.delete--li .li--title {
+.list-delete .li--title {
   text-decoration: line-through;
 }
 </style>
