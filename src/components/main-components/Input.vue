@@ -7,16 +7,16 @@
       v-model="title"
     />
     <div class="input--buttons">
-      <Button-execute @onExecute="createTask"/>
-      <Button-clear @onDelete="onDelete"/>
+      <ButtonExecute @onExecute="createTask"/>
+      <ButtonClear @onDelete="onDelete"/>
     </div>
   </form>
 </template>
 
 <script>
 import TODO_STATUS from "../../helpers";
-import ButtonClear from './Button-clear.vue';
-import ButtonExecute from './Button-execute.vue';
+import ButtonClear from './ButtonClear.vue';
+import ButtonExecute from './ButtonExecute.vue';
 
 export default {
   name: "Input",
@@ -32,12 +32,11 @@ export default {
   methods: {
     onSubmit() {
       if (this.title.trim()) {
-        const newTask = {
+        this.$emit("addTask", {
           id: Date.now(),
           title: this.title,
           status: TODO_STATUS[2],
-        };
-        this.$emit("addTask", newTask);
+        });
         this.onDelete();
       }
     },

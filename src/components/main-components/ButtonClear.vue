@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  name: "Button-clear",
+  name: "ButtonClear",
 };
 </script>
 

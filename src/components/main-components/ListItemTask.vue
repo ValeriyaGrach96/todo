@@ -3,15 +3,15 @@
     <p class="li--id">{{ index + 1 }}.</p>
     <p class="li--title">{{ task.title }}</p>
     <div class="tasks--buttons">
-      <Button-execute @onExecute="completeTask"/>
-      <Button-clear @onDelete="removeTask"/>
+      <ButtonExecute v-if="statusLists === 'opened'" @onExecute="completeTask"/>
+      <ButtonClear @onDelete="removedTask"/>
     </div>
   </div>
 </template>
 
 <script>
-import ButtonClear from './Button-clear.vue';
-import ButtonExecute from './Button-execute.vue';
+import ButtonClear from './ButtonClear.vue';
+import ButtonExecute from './ButtonExecute.vue';
 
 export default {
   name: "ListTask",
@@ -25,10 +25,11 @@ export default {
       required: true,
     },
     index: Number,
+    statusLists: String,
   },
   methods: {
-    removeTask() {
-      this.$emit("removeTask", this.task.id);
+    removedTask() {
+      this.$emit("removedTask", this.task.id);
     },
     completeTask() {
       this.$emit("completeTask", this.task.id);
